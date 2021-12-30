@@ -1,0 +1,16 @@
+cflags = -Wall
+
+
+rule cc
+  command = g++ $cflags -c $in -o $out
+
+rule clib
+  command = ar cr libcalculator.a $in
+
+rule link
+  command = g++ $in -L. -lcalculator -o $out
+
+build cli.o: cc cli.cpp
+build calculator.o: cc calculator.cpp
+build libcalculator.a: clib calculator.o
+build lab2: link cli.o
